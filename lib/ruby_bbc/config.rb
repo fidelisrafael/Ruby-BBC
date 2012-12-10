@@ -1,7 +1,8 @@
 #encoding: UTF-8
 module RubyBBC
   include RubyBBC::Tags
-	class Config
+	class RubyBBConfig
+	 include RubyBBC::Tags
 	 attr_reader :tags_config
 	 def initialize
 		default   
@@ -14,11 +15,12 @@ module RubyBBC
 	 # default HTML replacement valuess
 	 def default
 		@config ||= {
-		  enabled_groups:  RubyBBC.tags.collect {|k,v| v[:group]}.uniq, # By default all groups are enableds
-		  disabled_groups: [] ,                                   			# By default, no groups area disabled
-		  enabled_tags:    RubyBBC.tags.keys,                           # By default, all tags are enabled
-		  disabled_tags:   [],                                   				# By default, no tag are disabled
-		  escape_html: true					    																# By default, escape all HTML tags
+		  enabled_groups:  [],                                            # By default all groups are enableds
+      # @@tags.collect {|k,v| v[:group]}.uniq.compact
+		  disabled_groups: [] ,                                   			  # By default, no groups area disabled
+		  enabled_tags:    @@tags.keys,                           				# By default, all tags are enabled
+		  disabled_tags:   [],                                   					# By default, no tag are disabled
+		  escape_html: true					    																	# By default, escape all HTML tags
 		}
 		@tags_config ||= { 
 		  default_image_alt: 'Image..' , 
